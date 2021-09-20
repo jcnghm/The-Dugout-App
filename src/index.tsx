@@ -1,12 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { Home, Dashboard, SignIn, SignUp, Profile, NavBar } from './components'; 
 import reportWebVitals from './reportWebVitals';
+import './styles.css'
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Switch>
+
+        <Route exact path='/'>
+          <Home title={'The Dugout'}/>
+        </Route>
+
+        <Route path='/dashboard'>
+          <Dashboard ></Dashboard>
+        </Route>
+
+        <Route path='/signin'>
+          <SignIn></SignIn>
+        </Route>
+
+        <Route path='/profile'>
+          <Profile></Profile>
+        </Route>
+
+        <Route path='/signup'>
+          <SignUp></SignUp>
+        </Route>
+
+      </Switch>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
