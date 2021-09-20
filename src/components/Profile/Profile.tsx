@@ -23,7 +23,7 @@ const useStyles = makeStyles({
         alignItems: 'centered',
     },
     logo: {
-        margin: '0, 0, 0, 0.45rem'
+        margin: '0, 0, 0, 0.45rem',
     },
     logoImage: {
         paddingTop: '20px',
