@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import background_image from '../../assets/images/sandlot2.jpg';
 import logo_image from '../../assets/images/logo.png'
-
+import {NavBar} from '../NavBar'
 import { Link } from 'react-router-dom';
 // import { AuthCheck } from 'reactfire'; 
 import { Suspense } from 'react';
@@ -95,38 +95,9 @@ export const Home = ( props:Props) => {
     return (
         <div className={classes.root}>
             {/* Nav Bar */}
-            <nav>
-                <div className={classes.navbar_container}>
-                    <h1 className={ `${classes.logo} `}>
-                        <img className={`${classes.logoImage}`}src= {logo_image}  alt="logo"/>
-                        <a href="/" className={ `${classes.logo_a} ${classes.logo_navigation}` }>The Dugout</a>
-                        
-                    </h1>
-                    <ul className={ `${classes.navigation} ${classes.logo_navigation}` }>
-                        <li>
-                            <Link to="/" className={classes.nav_a}>Home</Link>
-                        </li>
-                        {/* <Suspense fallback={'loading...'}> */}
-                            {/* <AuthCheck fallback={ */}
-                                <li>
-                                    <Link to="/signin" className={classes.nav_a}>Sign In</Link>
-                                </li>
-                                {/* }> */}
-                                <li>
-                                    <Link to="/profile" className={classes.nav_a}>Profile</Link>
-                                </li>
 
-                                <li>
-                                    <Link to="/dashboard" className={classes.nav_a}>Player Stats</Link>
-                                </li>
-                                <li>
-                                    <Link to="/" className={classes.nav_a}>Sign Out</Link>
-                                </li>
-                            {/* </AuthCheck>
-						</Suspense> */}
-                    </ul>
-                </div>
-            </nav>
+            {/* <NavBar/> */}
+            <NavBar/>
 
             {/* Main Home Section */}
             <main className={classes.main}>

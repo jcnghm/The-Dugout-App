@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import logo_image from '../../assets/images/logo.png'
+import logo_image from '../../assets/images/logo3.jpg'
 import { Link } from 'react-router-dom';
 
 
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     logoImage: {
         paddingTop: '20px',
         paddingRight: '20px',
-        paddingLeft: '10px'
+        paddingLeft: '15px',
     },
     logo_a: {
         color: 'rgb(28,24,22)',
@@ -75,7 +75,7 @@ export const NavBar = () => {
                 <div className={classes.navbar_container}>
                     <h1 className={ `${classes.logo} `}>
                         <img className={`${classes.logoImage}`}src= {logo_image}  alt="logo"/>
-                        <a href="/" className={ `${classes.logo_a} ${classes.logo_navigation}` }>The Dugout</a>
+                        {/* <a href="/" className={ `${classes.logo_a} ${classes.logo_navigation}` }>The Dugout</a> */}
                         
                     </h1>
                     <ul className={ `${classes.navigation} ${classes.logo_navigation}` }>
