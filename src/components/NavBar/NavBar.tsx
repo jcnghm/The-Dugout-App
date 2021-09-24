@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import logo_image from '../../assets/images/logo3.jpg'
 import { Link } from 'react-router-dom';
-import { AuthCheck } from 'reactfire'; 
+import { AuthCheck, useAuth } from 'reactfire'; 
 import { Suspense } from 'react';
 
 
@@ -83,12 +83,12 @@ export const NavBar = () => {
                         <li>
                             <Link to="/" className={classes.nav_a}>Home</Link>
                         </li>
-                        {/* <Suspense fallback={'loading...'}> */}
-                            {/* <AuthCheck fallback={ */}
+                         <Suspense fallback={'loading...'}> 
+                             <AuthCheck fallback={ 
                                 <li>
                                     <Link to="/signin" className={classes.nav_a}>Sign In</Link>
                                 </li>
-                                {/* }> */}
+                                }> 
                                 <li>
                                     <Link to="/profile" className={classes.nav_a}>Profile</Link>
                                 </li>
@@ -97,10 +97,10 @@ export const NavBar = () => {
                                     <Link to="/dashboard" className={classes.nav_a}>Player Stats</Link>
                                 </li>
                                 <li>
-                                    <Link to="/" className={classes.nav_a}>Sign Out</Link>
+                                    <Link to="/signin" className={classes.nav_a}>Sign Out</Link>
                                 </li>
-                            {/* </AuthCheck>
-						</Suspense> */}
+                            </AuthCheck>
+						</Suspense>
                     </ul>
                 </div>
             </nav>

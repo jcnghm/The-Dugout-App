@@ -3,11 +3,10 @@ import { makeStyles, Button } from '@material-ui/core';
 import background_image from '../../assets/images/dashboard_background.jpg'
 import {NavBar} from '../NavBar'
 import './searchstyles.css'
-import {getPlayerInfo} from '../PlayerInfo'
+import {getPlayerInfo, getPlayerHitting, getPlayerPitching} from '../PlayerInfo'
 import { Container, Row, Col, Table } from 'react-bootstrap';
 
-
-
+// makeStyles for the Player Stats Dashboard Page
 
 const useStyles = makeStyles({
     button: {
@@ -18,8 +17,10 @@ const useStyles = makeStyles({
         marginTop: '50px'
     },
     title: {
-        fontSize: '30px',
-        fontFamily: 'Tahoma',
+        fontSize: '40px',
+        fontFamily: 'Playball',
+        fontWeight: 'normal'
+
     },
     table: {
         justifyContent: 'center',
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
         position: 'relative',
         marginTop: '15%',
         left: '50%',
-        transform: 'translate(-110%, -60%)',
+        transform: 'translate(-50%, -130%)',
         color: 'white',
         fontFamily: 'Roboto',
         fontSize: '25px',
@@ -39,18 +40,16 @@ const useStyles = makeStyles({
         marginBottom: "5%",
         width: "60%",
         marginLeft: "18%",
-        transform: 'translate(35%, -200%)',
+        transform: 'translate(0%, -110%)',
     },
     output: {
-        paddingLeft: "20px",
-        paddingRight: "20px",
-        paddingTop: "5px",
-        paddingBottom: "10px",
+        paddingLeft: "15px",
+        paddingRight: "15px",
         textAlign: 'center',
         position: 'relative',
-        marginTop: '5%',
+        marginTop: '10px',
         color: 'white',
-        fontFamily: 'Tahoma',
+        fontFamily: 'Times New Roman',
         fontSize: '18px',
         width: "50%",
         border: "3px solid white",
@@ -79,6 +78,8 @@ const useStyles = makeStyles({
     }
 })
 
+// Props to pass data to table (Info, Hitting, and Pitching)
+
 export interface TableProps {
     name_display_first_last: string
     birth_city: string
@@ -90,6 +91,7 @@ export interface TableProps {
     college: string
     throws: string
     bats: string
+    pro_debut_date: string
 }
 
 export interface HittingProps {
@@ -118,6 +120,8 @@ export interface PitchingProps {
     l: string
 }
 
+// Start of Player Stats Dashboard
+
 export const Dashboard = () => {
 
     const classes = useStyles();
@@ -126,6 +130,8 @@ export const Dashboard = () => {
         event.preventDefault()
         console.log(playerFullName)
         setplayerTableInfo(await getPlayerInfo(playerFullName))
+        sethittingTableInfo(await getPlayerHitting(playerFullName))
+        setpitchingTableInfo(await getPlayerPitching(playerFullName))
     }
 
     const [playerFullName, setPlayerName] = useState('')
@@ -144,7 +150,8 @@ export const Dashboard = () => {
                 team_name: "",
                 college: "",
                 throws: "",
-                bats: ""
+                bats: "",
+                pro_debut_date: ""
             }
         )
     // Default Props for Hitting Data Table
@@ -182,16 +189,18 @@ export const Dashboard = () => {
     return (
 
         <div className={classes.root}>
+
             {/* Nav Bar */}
             
             <NavBar/>
 
             {/* Main Player Stats Table Search Section */}
+
             <main className={classes.main}>
                 <div className={classes.table}>
                     
                     <div >
-                        <h1 className = {classes.title}>Player Information</h1>
+                        <h1 className = {classes.title}>Player Statistics</h1>
                         <form name="player-info" id="player-info" onSubmit={submitForm} >
                             <div className="container">
                                 <input  value = {playerFullName} name = "fullname" id="fullname" className="searchbar" type="text" onChange={(e) => setPlayerName(e.target.value)}placeholder="Enter Player Name..."/>
@@ -210,6 +219,7 @@ export const Dashboard = () => {
                                 <th className = {classes.output}>Age</th>
                                 <th className = {classes.output}>Nickname</th>
                                 <th className = {classes.output}>College</th>
+                                <th className = {classes.output}>MLB Debut</th>
                                 <th className = {classes.output}>Team Name</th>
                                 <th className = {classes.output}>Throws</th>
                                 <th className = {classes.output}>Bats</th>
@@ -220,6 +230,7 @@ export const Dashboard = () => {
                                 <td className = {classes.output}>{playerTableInfo.age}</td>
                                 <td className = {classes.output}>{playerTableInfo.name_nick}</td>
                                 <td className = {classes.output}>{playerTableInfo.college}</td>
+                                <td className = {classes.output}>{playerTableInfo.pro_debut_date}</td>
                                 <td className = {classes.output}>{playerTableInfo.team_name}</td>
                                 <td className = {classes.output}>{playerTableInfo.throws}</td>
                                 <td className = {classes.output}>{playerTableInfo.bats}</td>
@@ -240,16 +251,16 @@ export const Dashboard = () => {
                                 <th className = {classes.output}>AB</th>
                             </tr>
                             <tr>
-                                <td className = {classes.output}>{playerTableInfo.name_display_first_last}</td>
-                                <td className = {classes.output}>{playerTableInfo.birth_city} {playerTableInfo.birth_state} {playerTableInfo.birth_country}</td>
-                                <td className = {classes.output}>{playerTableInfo.age}</td>
-                                <td className = {classes.output}>{playerTableInfo.name_nick}</td>
-                                <td className = {classes.output}>{playerTableInfo.college}</td>
-                                <td className = {classes.output}>{playerTableInfo.team_name}</td>
-                                <td className = {classes.output}>{playerTableInfo.throws}</td>
-                                <td className = {classes.output}>{playerTableInfo.bats}</td>
-                                <td className = {classes.output}>{playerTableInfo.bats}</td>
-                                <td className = {classes.output}>{playerTableInfo.bats}</td>
+                                <td className = {classes.output}>{hittingTableInfo.avg}</td>
+                                <td className = {classes.output}>{hittingTableInfo.h}</td>
+                                <td className = {classes.output}>{hittingTableInfo.obp}</td>
+                                <td className = {classes.output}>{hittingTableInfo.slg}</td>
+                                <td className = {classes.output}>{hittingTableInfo.ops}</td>
+                                <td className = {classes.output}>{hittingTableInfo.rbi}</td>
+                                <td className = {classes.output}>{hittingTableInfo.hr}</td>
+                                <td className = {classes.output}>{hittingTableInfo.so}</td>
+                                <td className = {classes.output}>{hittingTableInfo.bb}</td>
+                                <td className = {classes.output}>{hittingTableInfo.ab}</td>
                             </tr>
                         </table>
 
@@ -267,16 +278,16 @@ export const Dashboard = () => {
                                 <th className = {classes.output}>IP</th>
                             </tr>
                             <tr>
-                                <td className = {classes.output}>{playerTableInfo.name_display_first_last}</td>
-                                <td className = {classes.output}>{playerTableInfo.birth_city} {playerTableInfo.birth_state} {playerTableInfo.birth_country}</td>
-                                <td className = {classes.output}>{playerTableInfo.age}</td>
-                                <td className = {classes.output}>{playerTableInfo.name_nick}</td>
-                                <td className = {classes.output}>{playerTableInfo.college}</td>
-                                <td className = {classes.output}>{playerTableInfo.team_name}</td>
-                                <td className = {classes.output}>{playerTableInfo.throws}</td>
-                                <td className = {classes.output}>{playerTableInfo.bats}</td>
-                                <td className = {classes.output}>{playerTableInfo.bats}</td>
-                                <td className = {classes.output}>{playerTableInfo.bats}</td>
+                                <td className = {classes.output}>{pitchingTableInfo.era}</td>
+                                <td className = {classes.output}>{pitchingTableInfo.so}</td>
+                                <td className = {classes.output}>{pitchingTableInfo.bb}</td>
+                                <td className = {classes.output}>{pitchingTableInfo.kbb}</td>
+                                <td className = {classes.output}>{pitchingTableInfo.k9}</td>
+                                <td className = {classes.output}>{pitchingTableInfo.whip}</td>
+                                <td className = {classes.output}>{pitchingTableInfo.w}</td>
+                                <td className = {classes.output}>{pitchingTableInfo.l}</td>
+                                <td className = {classes.output}>{pitchingTableInfo.sv}</td>
+                                <td className = {classes.output}>{pitchingTableInfo.ip}</td>
                             </tr>
                         </table>
                         
