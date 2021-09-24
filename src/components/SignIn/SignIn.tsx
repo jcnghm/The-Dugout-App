@@ -1,14 +1,14 @@
-import background_image from '../../assets/images/homeplate.jpg'
-import logo_image from '../../assets/images/logo.png'
-import { Link } from 'react-router-dom';
 import React, {useState} from 'react';
-// import firebase from 'firebase/app';
-// import { useAuth, AuthCheck } from 'reactfire';
-// import 'firebase/auth';
+import firebase from 'firebase/app';
+import { useAuth, AuthCheck } from 'reactfire';
+import 'firebase/auth';
+import { Input } from '../sharedComponents/Input';
 import { Container, Button, makeStyles, Typography, Snackbar,  } from '@material-ui/core';
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import background_image from '../../assets/images/signin.jpg'
 import {NavBar} from '../NavBar'
+
 
 
 const Alert = (props:AlertProps) => {
@@ -16,75 +16,34 @@ const Alert = (props:AlertProps) => {
 }
 
 
+
 const useStyles = makeStyles({
-    
     root: {
         padding: '0',
         margin: '0',
-        backgroundColor: 'black'
-    },
-    navbar_container: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'centered',
-    },
-    logo: {
-        margin: '0, 0, 0, 0.45rem',
-    },
-    logoImage: {
-        paddingTop: '20px',
-        paddingRight: '20px',
-        paddingLeft: '10px'
-    },
-    logo_a: {
-        color: 'rgb(28,24,22)',
-        fontFamily: 'Playball',
-        fontSize: '30px'
-    },
-    logo_navigation: {
-        listStyle: 'none',
-        textTransformation: 'uppercase',
-        textDecoration: 'none',
-        color: 'white',
-        marginBottom: '15px',
-    },
-    navigation: {
-        display: 'flex'
-    },
-    nav_a: {
-        display: 'block',
-        padding: '1em',
-        color: 'white',
         backgroundColor: 'black',
-        fontFamily: 'Playball',
-        fontSize: '20px',
-        marginRight: '20px',
-        
     },
-    main: {
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${background_image});`,
+    input: {
+        backgroundColor: 'white',
+        color: 'black',
+        borderRadius: '25px',
+        width:'600px', 
+        padding: '20px'
+    },
+    main:{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), url(${background_image});`,
         width: '100%',
         height: '100%',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         position: 'absolute',
-    },
-    main_text: {
-        textAlign: 'center',
-        position: 'relative',
-        top: '35%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
         color: 'white',
-        fontFamily: 'Playball',
-        fontSize: '30px',
-    },
-    homeText: {
-        color: 'white',
+        fontFamily:'Playball'
+
     },
     googleButton:{
-        backgroundColor: 'rgb(66,133,244)',
+        backgroundColor: '#00176B',
         marginTop: '2em',
         padding: '0',
         color: 'white',
@@ -106,9 +65,9 @@ const useStyles = makeStyles({
         display: 'block'
     },
     typographyStyle: {
-        fontFamily: 'Roboto, arial, sans-serif;',
         textAlign: 'center',
-        fontSize: '2em'
+        fontSize: '3em',
+        fontFamily:'Playball'
     },
     containerStyle: {
         marginTop: '2em'
@@ -117,9 +76,8 @@ const useStyles = makeStyles({
         color: 'white',
         backgroundColor: '#4caf50'
     }
+
 })
-
-
 
 interface SignInProps{
     history: RouteComponentProps["history"];
@@ -127,28 +85,53 @@ interface SignInProps{
     match: RouteComponentProps['match'];
   }
 
-export const SignIn = () => {
-    const classes = useStyles();
-    return (
-        <div className={classes.root}>
-            {/* Nav Bar */}
-            
-            <NavBar/>
+export const SignIn = withRouter( (props:SignInProps) => {
 
-            {/* Main Player Stats Table Search Section */}
-            <main className={classes.main}>
-                {/* <div className={classes.main_text}> */}
-                {/* <div>
+    const auth = useAuth();
+    const classes = useStyles();
+    const { history } = props
+    const [open, setOpen] = useState(false);
+
+    const handleSnackOpen = () => {
+        setOpen(true)
+    }
+
+    const handleSnackClose = (event?: React.SyntheticEvent, reason?:string) => {
+        if(reason === 'clickaway'){
+            return;
+        }
+
+        setOpen(false)
+        history.push('/')
+    }
+
+    const sign_in = async () => {
+       const response = await auth.signInWithPopup( new firebase.auth.GoogleAuthProvider());
+       if(response.user){
+           handleSnackOpen()
+       }
+    };
+
+    const sign_out = async () => {
+        await auth.signOut();
+    }
+
+    return (
+
+        <div className={classes.root}>
+            <NavBar/>
+        <div className={classes.main}>
+
             <Container maxWidth = 'sm' className={classes.containerStyle}>
-                <Typography className={classes.typographyStyle}>Sign In Below</Typography>
-                <form>
+                <Typography className={classes.typographyStyle}>Sign In</Typography>
+                <form className={classes.input}>
                 <div>
                     <label htmlFor="email">Email</label>
-                    <Input  name="email" placeholder='Place Email Here' />
+                    <Input  name="email" placeholder='Email' />
                 </div>
                 <div>
                     <label htmlFor="password">Password</label>
-                    <Input  name="password" placeholder='Place Password Here' />
+                    <Input  name="password" placeholder='Password' />
                 </div>
                 <Button type='submit' variant='contained' color='primary'>Submit</Button>
                 </form>
@@ -158,18 +141,14 @@ export const SignIn = () => {
                 }>
                     <Button variant='contained' color='secondary' onClick={sign_out}>Sign Out</Button>
                 </AuthCheck>
-                <Snackbar message={'Success'} open={open} autoHideDuration={6000} onClose={handleSnackClose}>
+                <Snackbar message={'Success'} open={open} autoHideDuration={3000} onClose={handleSnackClose}>
                 <Alert onClose={handleSnackClose} severity="success">
                     Successful Sign In - Redirect in 6 secs
                 </Alert>
                 </Snackbar>
 
             </Container>
-        </div> */}
-                {/* </div> */}
-                {/* <div className={classes.main_text}>
-                </div> */}
-            </main>
+        </div>
         </div>
     )
-}
+})

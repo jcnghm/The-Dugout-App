@@ -14,7 +14,7 @@
       border: none;
       margin-top: 50px;
       font-family: "roboto";
-      font-size: 1em;
+      font-size: .5em;
       font-weight: bold;
       border-bottom: white solid 2px;
       transition: 0.3s;
@@ -32,7 +32,7 @@
   .searchbar:focus {
       width: 300px;
       font-family: roboto;
-      font-size: 1em;
+      font-size: .8em;
       font-weight: bold;
       transition: 0.3s;
       border-bottom: white solid 2px;

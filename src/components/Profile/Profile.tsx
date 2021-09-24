@@ -66,7 +66,7 @@ const useStyles = makeStyles({
     main_text: {
         textAlign: 'center',
         position: 'relative',
-        top: '35%',
+        top: '15%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         color: 'white',
@@ -91,6 +91,7 @@ export const Profile = () => {
             {/* Main Profile Section */}
             <main className={classes.main}>
                 <div className={classes.main_text}>
+                    <h1>Welcome to Your Profile</h1>
                 </div>
                 <div className={classes.main_text}>
                 </div>

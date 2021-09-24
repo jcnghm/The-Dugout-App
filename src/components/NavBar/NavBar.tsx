@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import logo_image from '../../assets/images/logo3.jpg'
 import { Link } from 'react-router-dom';
-
+import { AuthCheck } from 'reactfire'; 
+import { Suspense } from 'react';
 
 
 interface Props{
