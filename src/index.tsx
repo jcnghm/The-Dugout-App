@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Home, Dashboard, SignIn, SignUp, Profile, NavBar } from './components'; 
+import { Home, Dashboard, SignIn, SignUp, Profile, Season, PlayerTeam } from './components'; 
 import reportWebVitals from './reportWebVitals';
 import './styles.css'
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -9,6 +9,7 @@ import { store } from './redux/store';
 import { FirebaseAppProvider, AuthCheck } from 'reactfire'; 
 import 'firebase/auth'; 
 import { firebaseConfig } from './firebaseConfig' 
+
 
 
 ReactDOM.render(
@@ -26,12 +27,20 @@ ReactDOM.render(
           <Dashboard ></Dashboard>
         </Route>
 
+        <Route path='/season'>
+          <Season ></Season>
+        </Route>
+
         <Route path='/signin'>
           <SignIn></SignIn>
         </Route>
 
         <Route path='/profile'>
           <Profile></Profile>
+        </Route>
+
+        <Route path='/playerteam'>
+          <PlayerTeam></PlayerTeam>
         </Route>
 
         <Route path='/signup'>

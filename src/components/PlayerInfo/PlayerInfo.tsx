@@ -1,8 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import axios from 'axios'
+import { PitchingProps, HittingProps } from '../Dashboard'
+import { type } from 'os'
 
 
-
+// Table 1 General Info Function
 export async function getPlayerInfo(fullName: string) {
 
   // This grabs playerID from form with input Full Name
@@ -19,6 +21,7 @@ export async function getPlayerInfo(fullName: string) {
   )
 }
 
+// Table 2 Hitting Stats Function
 export async function getPlayerHitting(fullName: string) {
 
   // This grabs playerID from form with input Full Name
@@ -35,7 +38,7 @@ export async function getPlayerHitting(fullName: string) {
   )
 }
 
-
+// Table 3 Pitching Stats Function
 export async function getPlayerPitching(fullName: string) {
 
   // This grabs playerID from form with input Full Name

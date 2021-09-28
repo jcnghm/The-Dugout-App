@@ -1,12 +1,11 @@
 import React, { useState,  Suspense } from "react";
 import { makeStyles, Button } from '@material-ui/core';
-import background_image from '../../assets/images/dashboard_background.jpg'
+import background_image from '../../assets/images/baseball.jpg'
 import {NavBar} from '../NavBar'
 import './searchstyles.css'
-import {getPlayerInfo, getPlayerHitting, getPlayerPitching} from '../PlayerInfo'
+import {getSeasonPlayerPitching, getProjectedSeason} from '../SeasonInfo'
 
-
-// makeStyles for the Player Stats Dashboard Page
+// makeStyles for the Player Stats Season Page
 
 const useStyles = makeStyles({
     button: {
@@ -14,18 +13,22 @@ const useStyles = makeStyles({
         fontFamily:'roboto',
         color: 'white',
         marginLeft: '50px',
-        marginTop: '50px'
+        marginTop: '50px',
+        minWidth: "200px"
     },
     title: {
         fontSize: '40px',
         fontFamily: 'Playball',
-        fontWeight: 'normal'
+        fontWeight: 'normal',
+
+
     },
     table_title: {
         color: "white",
         fontFamily: "Playball",
         fontWeight: "normal",
         marginLeft: "20px",
+        marginTop: "-20px"
     },
     bootstrap_table: {
         color: "white",
@@ -45,10 +48,8 @@ const useStyles = makeStyles({
 
     },
     table_output: {
-        marginBottom: "3%",
         width: "60%",
-        marginLeft: "18%",
-        transform: 'translate(0%, -120%)',
+        marginLeft: "20%",
     },
     output: {
         paddingLeft: "15px",
@@ -81,51 +82,14 @@ const useStyles = makeStyles({
         backgroundPosition: 'center',
         position: 'absolute',
     },
-        main_text: {
-        textAlign: 'center',
-        position: 'relative',
-        top: '35%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        color: 'white',
-        fontFamily: 'Playball',
-        fontSize: '30px',
-    },
     searchbar: {
         fontSize: "20px"
     }
 })
 
-// Props to pass data to table (Info, Hitting, and Pitching)
+// Props to pass data to table (Projected vs Actual)
 
-export interface TableProps {
-    name_display_first_last: string
-    birth_city: string
-    birth_state: string
-    birth_country: string
-    age: string
-    name_nick: string
-    team_name: string
-    college: string
-    throws: string
-    bats: string
-    pro_debut_date: string
-}
-
-export interface HittingProps {
-    avg: string
-    h: string
-    obp: string
-    slg: string
-    ops: string
-    rbi: string
-    hr: string
-    so: string
-    bb: string
-    ab: string
-}
-
-export interface PitchingProps {
+export interface ProjectedProps {
     era: string
     so: string
     bb: string
@@ -138,59 +102,39 @@ export interface PitchingProps {
     l: string
 }
 
+export interface SeasonPitchingProps {
+    era: string
+    so: string
+    bb: string
+    kbb: string
+    k9: string
+    whip: string
+    ip: string
+    sv: string
+    w: string
+    l: string
+    season: string
+}
+
 // Start of Player Stats Dashboard
 
-export const Dashboard = () => {
+export const Season = () => {
 
     const classes = useStyles();
 
     const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        console.log(playerFullName)
-        setplayerTableInfo(await getPlayerInfo(playerFullName))
-        sethittingTableInfo(await getPlayerHitting(playerFullName))
-        setpitchingTableInfo(await getPlayerPitching(playerFullName))
+        console.log(playerFullName, playerSeason)
+        setProjectedTableInfo(await getProjectedSeason(playerFullName, playerSeason))
+        setpitchingTableInfo(await getSeasonPlayerPitching(playerFullName, playerSeason))
     }
-
-    
 
     const [playerFullName, setPlayerName] = useState('')
 
-    
+    const [playerSeason, setPlayerSeason] = useState('')
 
-    // Default Props for Player Info Table
-        const [playerTableInfo, setplayerTableInfo] = useState<TableProps>(
-            {
-                name_display_first_last: '',
-                birth_city: "",
-                birth_state: "",
-                birth_country: "",
-                age: "",
-                name_nick: "",
-                team_name: "",
-                college: "",
-                throws: "",
-                bats: "",
-                pro_debut_date: ""
-            }
-        )
     // Default Props for Hitting Data Table
-        const [hittingTableInfo, sethittingTableInfo] = useState<HittingProps>(
-            {
-                avg: "",
-                h: "",
-                obp: "",
-                slg: "",
-                ops: "",
-                rbi: "",
-                hr: "",
-                so: "",
-                bb: "",
-                ab: "",
-            }
-        )
-    // Default Props for Pitching Data Table
-        const [pitchingTableInfo, setpitchingTableInfo] = useState<PitchingProps>(
+        const [projectedTableInfo, setProjectedTableInfo] = useState<ProjectedProps>(
             {
                 era: "",
                 so: "",
@@ -204,10 +148,23 @@ export const Dashboard = () => {
                 l: "",
             }
         )
+    // Default Props for Pitching Data Table
+        const [pitchingTableInfo, setpitchingTableInfo] = useState<SeasonPitchingProps>(
+            {
+                era: "",
+                so: "",
+                bb: "",
+                kbb: "",
+                k9: "",
+                whip: "",
+                ip: "",
+                sv: "",
+                w: "",
+                l: "",
+                season: "",
+            }
+        )
         
-        // Date formatting for Debut Date
-        let debut_date = playerTableInfo.pro_debut_date;
-        let debut = debut_date.slice(0,4)
 
     return (
 
@@ -221,12 +178,13 @@ export const Dashboard = () => {
 
             <main className={classes.main}>
                 <div className={classes.table}>
-        
+                    
                     <div >
-                        <h1 className = {classes.title}>Player Career Statistics</h1>
+                        <h1 className = {classes.title}>Pitching Statistics By Season</h1>
                         <form name="player-info" id="player-info" onSubmit={submitForm} >
                             <div className="container">
                                 <input  value = {playerFullName} name = "fullname" id="fullname" className="searchbar" type="text" onChange={(e) => setPlayerName(e.target.value)}placeholder="Enter Player Name..."/>
+                                <input  value = {playerSeason} name = "season" id="season" className="searchbar" type="text" onChange={(i) => setPlayerSeason(i.target.value)}placeholder="Enter Season..."/>
                                 <Button className = {classes.button} variant="contained" color = "primary" type="submit" >Get Player Info</Button>
                             </div>
                         </form>   
@@ -235,59 +193,10 @@ export const Dashboard = () => {
                 <div id="player-table">
                 <Suspense fallback = {<p>Loading</p>}>
                 <div>
-                
-                        <table className = {classes.table_output}>
-                            <tr>
-                                <th className = {classes.output}>Name</th>
-                                <th className = {classes.output}>Birthplace</th>
-                                <th className = {classes.output}>Age</th>
-                                <th className = {classes.output}>Nickname</th>
-                                <th className = {classes.output}>College</th>
-                                <th className = {classes.output}>MLB Debut</th>
-                                <th className = {classes.output}>Team Name</th>
-                                <th className = {classes.output}>Throws</th>
-                                <th className = {classes.output}>Bats</th>
-                            </tr>
-                            <tr>
-                                <td className = {classes.output}>{playerTableInfo.name_display_first_last}</td>
-                                <td className = {classes.output}>{playerTableInfo.birth_city} {playerTableInfo.birth_state} {playerTableInfo.birth_country}</td>
-                                <td className = {classes.output}>{playerTableInfo.age}</td>
-                                <td className = {classes.output}>{playerTableInfo.name_nick}</td>
-                                <td className = {classes.output}>{playerTableInfo.college}</td>
-                                <td className = {classes.output}>{debut}</td>
-                                <td className = {classes.output}>{playerTableInfo.team_name}</td>
-                                <td className = {classes.output}>{playerTableInfo.throws}</td>
-                                <td className = {classes.output}>{playerTableInfo.bats}</td>
-                            </tr>
-                        </table>
-                        <h1 className = {classes.table_title}>Career Stats</h1>
-                        <table className = {classes.table_output}>
-                            <tr>
-                                <th className = {classes.output}>AVG</th>
-                                <th className = {classes.output}>H</th>
-                                <th className = {classes.output}>OBP</th>
-                                <th className = {classes.output}>SLG</th>
-                                <th className = {classes.output}>OPS</th>
-                                <th className = {classes.output}>RBI</th>
-                                <th className = {classes.output}>HR</th>
-                                <th className = {classes.output}>SO</th>
-                                <th className = {classes.output}>BB</th>
-                                <th className = {classes.output}>AB</th>
-                            </tr>
-                            <tr>
-                                <td className = {classes.output}>{hittingTableInfo.avg}</td>
-                                <td className = {classes.output}>{hittingTableInfo.h}</td>
-                                <td className = {classes.output}>{hittingTableInfo.obp}</td>
-                                <td className = {classes.output}>{hittingTableInfo.slg}</td>
-                                <td className = {classes.output}>{hittingTableInfo.ops}</td>
-                                <td className = {classes.output}>{hittingTableInfo.rbi}</td>
-                                <td className = {classes.output}>{hittingTableInfo.hr}</td>
-                                <td className = {classes.output}>{hittingTableInfo.so}</td>
-                                <td className = {classes.output}>{hittingTableInfo.bb}</td>
-                                <td className = {classes.output}>{hittingTableInfo.ab}</td>
-                            </tr>
-                        </table>
-                        
+                        <h1 className = {classes.table_title}>{pitchingTableInfo.season} Season Stats - Projected vs Actual</h1> 
+                        <br />
+                        <br />
+
                         <table className = {classes.table_output}>
                             <tr>
                                 <th className = {classes.output}>ERA</th>
@@ -301,7 +210,35 @@ export const Dashboard = () => {
                                 <th className = {classes.output}>SV</th>
                                 <th className = {classes.output}>IP</th>
                             </tr>
-                            
+                    
+                            <tr>
+                                <td className = {classes.output}>{projectedTableInfo.era}</td>
+                                <td className = {classes.output}>{projectedTableInfo.so}</td>
+                                <td className = {classes.output}>{projectedTableInfo.bb}</td>
+                                <td className = {classes.output}>{projectedTableInfo.kbb}</td>
+                                <td className = {classes.output}>{projectedTableInfo.k9}</td>
+                                <td className = {classes.output}>{projectedTableInfo.whip}</td>
+                                <td className = {classes.output}>{projectedTableInfo.w}</td>
+                                <td className = {classes.output}>{projectedTableInfo.l}</td>
+                                <td className = {classes.output}>{projectedTableInfo.sv}</td>
+                                <td className = {classes.output}>{projectedTableInfo.ip}</td>
+                            </tr>
+                        </table>
+<br />
+<br />
+                        <table className = {classes.table_output}>
+                            <tr>
+                                <th className = {classes.output}>ERA</th>
+                                <th className = {classes.output}>SO</th>
+                                <th className = {classes.output}>BB</th>
+                                <th className = {classes.output}>KBB</th>
+                                <th className = {classes.output}>K/9</th>
+                                <th className = {classes.output}>whip</th>
+                                <th className = {classes.output}>W</th>
+                                <th className = {classes.output}>L</th>
+                                <th className = {classes.output}>SV</th>
+                                <th className = {classes.output}>IP</th>
+                            </tr>
                             <tr>
                                 <td className = {classes.output}>{pitchingTableInfo.era}</td>
                                 <td className = {classes.output}>{pitchingTableInfo.so}</td>
@@ -315,6 +252,7 @@ export const Dashboard = () => {
                                 <td className = {classes.output}>{pitchingTableInfo.ip}</td>
                             </tr>
                         </table>
+
                     </div>
                 </Suspense>
                 </div>
@@ -322,4 +260,3 @@ export const Dashboard = () => {
         </div>
     )
 }
-    

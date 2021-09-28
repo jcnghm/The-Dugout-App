@@ -5,8 +5,9 @@ import background_image from '../../assets/images/sandlot2.jpg';
 import logo_image from '../../assets/images/logo.png'
 import {NavBar} from '../NavBar'
 import { Link } from 'react-router-dom';
-// import { AuthCheck } from 'reactfire'; 
+import { AuthCheck } from 'reactfire'; 
 import { Suspense } from 'react';
+import {Row, Col} from 'react-bootstrap'
 
 interface Props{
     title: string;
@@ -103,8 +104,14 @@ export const Home = ( props:Props) => {
             <main className={classes.main}>
                 <div className={classes.main_text}>
                     <h1>{ props.title }</h1>
-                    <p>The Dugout is an interactive application to search statistics and add your favorite players</p>
+                    <p>The Dugout is an interactive application for baseball reference and statistics</p>
+                    <Suspense fallback={'loading...'}> 
+                    <AuthCheck fallback={
+                    <Button style={{backgroundColor: '#00176b', fontFamily:'roboto'}} color='primary' variant="contained" onClick={event =>  window.location.href='/signin'}>Sign In to View Stats</Button>
+                    }>
                     <Button style={{backgroundColor: '#00176b', fontFamily:'roboto'}} color='primary' variant="contained" onClick={event =>  window.location.href='/dashboard'}>Search Players</Button>
+                    </AuthCheck>
+                    </Suspense>
                     <hr className={classes.hrLine} />
                 </div>
                 <div className={classes.main_text}>
@@ -113,6 +120,7 @@ export const Home = ( props:Props) => {
                     <Button style={{backgroundColor: '#00176b', fontFamily:'roboto'}}color='primary' variant="contained" onClick={event =>  window.location.href='/signup'}>Sign Up Here</Button>
                 </div>
             </main>
+
         </div>
     )
 }

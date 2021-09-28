@@ -1,10 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import logo_image from '../../assets/images/logo3.jpg'
 import { Link } from 'react-router-dom';
 import { AuthCheck, useAuth } from 'reactfire'; 
 import { Suspense } from 'react';
+import 'firebase/auth';
+import './styles.css'
+import { Container, Navbar, NavDropdown, Nav} from 'react-bootstrap'
 
 
 interface Props{
@@ -67,42 +69,99 @@ const useStyles = makeStyles({
     }
 })
 
+// NavBar for all Pages
 export const NavBar = () => {
+
+    // SignOut for SignOut button
+    const auth = useAuth();
+    const sign_out = async () => {
+        await auth.signOut();
+    }
 
     const classes = useStyles();
 
     return (
-        <nav>
-                <div className={classes.navbar_container}>
-                    <h1 className={ `${classes.logo} `}>
-                        <img className={`${classes.logoImage}`}src= {logo_image}  alt="logo"/>
-                        {/* <a href="/" className={ `${classes.logo_a} ${classes.logo_navigation}` }>The Dugout</a> */}
+        // <nav>
+        //         <div className={classes.navbar_container}>
+        //             <h1 className={ `${classes.logo} `}>
+        //                 <Link to="/"><img className={`${classes.logoImage}`}src= {logo_image}  alt="logo"/></Link>
+        //                 {/* <a href="/" className={ `${classes.logo_a} ${classes.logo_navigation}` }>The Dugout</a> */}
                         
-                    </h1>
-                    <ul className={ `${classes.navigation} ${classes.logo_navigation}` }>
-                        <li>
-                            <Link to="/" className={classes.nav_a}>Home</Link>
-                        </li>
-                         <Suspense fallback={'loading...'}> 
-                             <AuthCheck fallback={ 
-                                <li>
-                                    <Link to="/signin" className={classes.nav_a}>Sign In</Link>
-                                </li>
-                                }> 
-                                <li>
-                                    <Link to="/profile" className={classes.nav_a}>Profile</Link>
-                                </li>
+        //             </h1>
+        //             <ul className={ `${classes.navigation} ${classes.logo_navigation}` }>
+        //                 <li>
+        //                     <Link to="/" className={classes.nav_a}>Home</Link>
+        //                 </li>
+        //                  <Suspense fallback={'loading...'}> 
+        //                      <AuthCheck fallback={ 
+        //                         <li>
+        //                             <Link to="/signin" className={classes.nav_a}>Sign In</Link>
+        //                         </li>
+        //                         }> 
+        //                         <li>
+        //                             <Link to="/profile" className={classes.nav_a}>Profile</Link>
+        //                         </li>
 
-                                <li>
-                                    <Link to="/dashboard" className={classes.nav_a}>Player Stats</Link>
-                                </li>
-                                <li>
-                                    <Link to="/signin" className={classes.nav_a}>Sign Out</Link>
-                                </li>
-                            </AuthCheck>
-						</Suspense>
-                    </ul>
-                </div>
-            </nav>
+        //                         <li>
+        //                             <Link to="/dashboard" className={classes.nav_a}>Career Stats</Link>
+        //                         </li>
+        //                         <li>
+        //                             <Link to="/season" className={classes.nav_a}>Season Stats</Link>
+        //                         </li>
+        //                         <li>
+        //                             <Link to="/playerteam" className={classes.nav_a}>Player Teams</Link>
+        //                         </li>
+        //                         <li>
+        //                             <Link to="/" className={classes.nav_a} onClick={sign_out}>Sign Out</Link>
+        //                         </li>
+        //                     </AuthCheck>
+		// 				</Suspense>
+        //             </ul>
+        //         </div>
+        //     </nav>
+        <Navbar bg="black" expand="md" variant="dark" >
+            <Container>
+                <Navbar.Brand href="/">
+                <img
+                    src={logo_image}
+                    className="d-inline-block align-top"
+                    width="150px"
+                    height="49px"
+                    alt="logo"
+                />
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="container-fluid" id="navbar">
+                        <Nav.Item>
+                        <Nav.Link href="/">Home</Nav.Link>
+                        </Nav.Item>
+                            <Suspense fallback={'loading...'}>
+                                <AuthCheck fallback={
+                                    <Nav.Item>
+                                        <Nav.Link href="/signin">SignIn</Nav.Link>
+                                    </Nav.Item>
+                                }>  <Nav.Item>
+                                        <Nav.Link href="/profile">Profile</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                    <   Nav.Link href="/dashboard">Career Stats</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link href="/season">Season Stats</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link href="/playerteam">Player Teams</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item className="ml-auto">
+                                        <Nav.Link href="/" onClick = {sign_out}>Sign Out</Nav.Link>
+                                    </Nav.Item>
+                                </AuthCheck>
+                            </Suspense>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
+
     )
 }

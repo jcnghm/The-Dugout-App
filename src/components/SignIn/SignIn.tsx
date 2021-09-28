@@ -15,8 +15,6 @@ const Alert = (props:AlertProps) => {
     return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
 
-
-
 const useStyles = makeStyles({
     root: {
         padding: '0',
@@ -27,8 +25,9 @@ const useStyles = makeStyles({
         backgroundColor: 'white',
         color: 'black',
         borderRadius: '25px',
-        width:'600px', 
-        padding: '20px'
+        maxWidth:'380px', 
+        padding: '20px',
+        marginLeft: "15%"
     },
     main:{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), url(${background_image});`,
@@ -39,7 +38,7 @@ const useStyles = makeStyles({
         backgroundPosition: 'center',
         position: 'absolute',
         color: 'white',
-        fontFamily:'Playball'
+        fontFamily:'Playball',
 
     },
     googleButton:{
@@ -57,7 +56,8 @@ const useStyles = makeStyles({
         display: 'block',
         borderRadius: '1px',
         fontFamily: 'Roboto, arial, sans-serif',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        marginLeft: "25%"
     },
     googleLogo:{
         width: '48px',
@@ -141,9 +141,9 @@ export const SignIn = withRouter( (props:SignInProps) => {
                 }>
                     <Button variant='contained' color='secondary' onClick={sign_out}>Sign Out</Button>
                 </AuthCheck>
-                <Snackbar message={'Success'} open={open} autoHideDuration={3000} onClose={handleSnackClose}>
+                <Snackbar message={'Success'} open={open} autoHideDuration={2000} onClose={handleSnackClose}>
                 <Alert onClose={handleSnackClose} severity="success">
-                    Successful Sign In - Redirect in 6 secs
+                    Successful Sign In - Redirect in 2 secs
                 </Alert>
                 </Snackbar>
 
