@@ -12,10 +12,38 @@ export async function getProjectedSeason(fullName:string, season:string) {
   let projected = await axios.get(`http://lookup-service-prod.mlb.com/json/named.proj_pecota_pitching.bam?season='${season}'&player_id='${playerID}'`)
   let projectedPitching = projected.data.proj_pecota_pitching.queryResults.row
   console.log(projectedPitching)
-
-  return(
-    projectedPitching
-  )
+    if (projectedPitching === undefined) {
+      let projectedPitching = {
+        era: '',
+        so: "",
+        bb: "",
+        kbb: "",
+        k9: "",
+        whip: "",
+        ip: "",
+        sv: "",
+        w: "",
+        l: "",
+        season: `No data for ${season}`,
+        bb9: '',
+        bk: '',
+        er: '',
+        h: '',
+        h9: '',
+        hr9: '',
+        obp: '',
+        ops: '',
+        slg: '',
+        wpct: '',
+        svo: '',
+        cg: '',
+      }
+      return projectedPitching
+    }else{
+    return(
+      projectedPitching
+    )
+  }
 }
 
 // Table 2 Pitching Stats Function
@@ -29,8 +57,36 @@ export async function getSeasonPlayerPitching(fullName: string, season: string) 
   let pitching = await axios.get(`http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='${season}'&player_id='${playerID}'`)
   let seasonpitchingInfo = pitching.data.sport_pitching_tm.queryResults.row
   console.log(seasonpitchingInfo)
-
-  return(
-    seasonpitchingInfo
-  )
+    if (seasonpitchingInfo === undefined) {
+      let seasonpitchingInfo = {
+        era: '',
+        so: "",
+        bb: "",
+        kbb: "",
+        k9: "",
+        whip: "",
+        ip: "",
+        sv: "",
+        w: "",
+        l: "",
+        season: `No data for ${season}`,
+        bb9: '',
+        bk: '',
+        er: '',
+        h: '',
+        h9: '',
+        hr9: '',
+        obp: '',
+        ops: '',
+        slg: '',
+        wpct: '',
+        svo: '',
+        cg: '',
+      }
+      return seasonpitchingInfo
+    }else {
+    return(
+      seasonpitchingInfo
+    )
+  }
 }

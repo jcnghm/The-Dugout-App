@@ -258,7 +258,6 @@ export const Dashboard = () => {
         // Date formatting for Debut Date
         let debut_date = playerTableInfo.pro_debut_date;
         let debut = debut_date.slice(0,4)
-
         let height = `${playerTableInfo.height_feet}'${playerTableInfo.height_inches}"`
 
     return (

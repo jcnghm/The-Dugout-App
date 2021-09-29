@@ -9,3 +9,5 @@ export * from './Season';
 export * from './SeasonInfo'
 export * from './PlayerTeam'
 export * from './PlayerTeamInfo'
+export * from './ChatTable'
+export * from './ChatForm'

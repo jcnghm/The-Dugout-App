@@ -12,7 +12,22 @@ export async function getPlayerTeam(fullName:string, season:string) {
   let playerteam = await axios.get(`http://lookup-service-prod.mlb.com/json/named.player_teams.bam?season='${season}'&player_id='${playerID}'`)
   let playerteaminfo = playerteam.data.player_teams.queryResults.row
   console.log(playerteaminfo)
-  return(
-    playerteaminfo
-  )
+    if (playerteaminfo === undefined) {
+      let playerteaminfo = {
+        league_full: `No data for ${season} season.`,
+        team: '',
+        start_date: '',
+        primary_position: '',
+        jersey_number: '',
+        forty_man_sw:'',
+        status:'',
+        team_abbrev:'',
+        league:'',
+      }
+      return(playerteaminfo)
+    }else{
+    return(
+      playerteaminfo
+    )
+  }
 }

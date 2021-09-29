@@ -1,58 +1,43 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import background_image from '../../assets/images/homeplate.jpg';
-import logo_image from '../../assets/images/logo.png'
-import {NavBar} from '../NavBar'
-import { Link } from 'react-router-dom';
-// import { AuthCheck } from 'reactfire'; 
-import { Suspense } from 'react';
+import React, { useState} from 'react';
+import { Drawer as MUIDrawer, 
+    ListItem, 
+    List, 
+    ListItemIcon, 
+    ListItemText, 
+    Theme,
+    useTheme, 
+    makeStyles, 
+    createStyles,
+    AppBar,
+    Toolbar,
+    IconButton,
+    Typography,
+    Divider,
+    Button,
+    Dialog,
+    DialogActions, 
+    DialogContent, 
+    DialogContentText, 
+    DialogTitle 
+} from '@material-ui/core';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import clsx from 'clsx';
+import { RouteComponentProps, withRouter, Switch, Route } from "react-router-dom";
+import { ChatTable, ChatForm } from '../../components'; 
+import { NavBar } from '../../components'
+import background_image from '../../assets/images/homeplate.jpg'
 
 
-const useStyles = makeStyles({
-    
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
     root: {
-        padding: '0',
-        margin: '0',
-        backgroundColor: 'black'
-    },
-    navbar_container: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'centered',
-    },
-    logo: {
-        margin: '0, 0, 0, 0.45rem',
-    },
-    logoImage: {
-        paddingTop: '20px',
-        paddingRight: '20px',
-        paddingLeft: '10px'
-    },
-    logo_a: {
-        color: 'rgb(28,24,22)',
-        fontFamily: 'Playball',
-        fontSize: '30px'
-    },
-    logo_navigation: {
-        listStyle: 'none',
-        textTransformation: 'uppercase',
-        textDecoration: 'none',
-        color: 'white',
-        marginBottom: '15px',
-    },
-    navigation: {
-        display: 'flex'
-    },
-    nav_a: {
-        display: 'block',
-        padding: '1em',
-        color: 'white',
-        backgroundColor: 'black',
-        fontFamily: 'Playball',
-        fontSize: '20px',
-        marginRight: '20px',
-        
+      display: 'flex',
+      flexDirection: 'column'
     },
     main: {
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${background_image});`,
@@ -63,39 +48,110 @@ const useStyles = makeStyles({
         backgroundPosition: 'center',
         position: 'absolute',
     },
-    main_text: {
-        textAlign: 'center',
-        position: 'relative',
-        top: '15%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        color: 'white',
-        fontFamily: 'Playball',
-        fontSize: '30px',
+    appBar: {
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      })
     },
-    homeText: {
-        color: 'white',
+    appBarShift: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    hide: {
+      display: 'none',
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+    drawerPaper: {
+      width: drawerWidth,
+    },
+    drawerHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: theme.spacing(0, 1),
+      ...theme.mixins.toolbar,
+      justifyContent: 'flex-end',
+    },
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing(3),
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: -drawerWidth,
+    },
+    contentShift: {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    },
+    toolbar:{
+      display: 'flex'
+    },
+    toolbar_button: {
+      marginLeft: 'auto'
     }
-})
+  }),
+);
 
-export const Profile = () => {
-
-    const classes = useStyles();
-
-    return (
-        <div className={classes.root}>
-            {/* Nav Bar */}
-            
-            <NavBar />
-
-            {/* Main Profile Section */}
-            <main className={classes.main}>
-                <div className={classes.main_text}>
-                    <h1>Welcome to Your Profile</h1>
-                </div>
-                <div className={classes.main_text}>
-                </div>
-            </main>
-        </div>
-    )
+interface DashProps{
+    history: RouteComponentProps["history"];
+    location: RouteComponentProps['location'];
+    match: RouteComponentProps['match'];
 }
+
+
+export const Profile = withRouter(( props:DashProps ) => {
+    console.log(props)
+    const { history } = props;
+    const classes = useStyles();
+    const theme = useTheme();
+    const [open, setOpen] = useState(false);
+    const [dialogOpen, setDialogOpen] = useState(false);
+
+    const handleDialogClickOpen = () => {
+      setDialogOpen(true);
+    }
+  
+    const handleDialogClickClose = () => {
+      setDialogOpen(false);
+    }
+    
+    return (
+      <div className={classes.root}>
+            <div>
+            <NavBar/>
+            </div>
+            <br />
+            <div>
+                <Button className={classes.toolbar_button} variant="contained"onClick={handleDialogClickOpen}>Add New Player</Button>
+                <br />
+                <br />
+                <Dialog open={dialogOpen} onClose={handleDialogClickClose} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">Add Player</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText>Place Player Info Here</DialogContentText>
+                        <ChatForm />
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick = {handleDialogClickClose} color = "primary">Cancel</Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
+        <ChatTable />
+      </div>
+      )
+});

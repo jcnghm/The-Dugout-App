@@ -152,10 +152,10 @@ export const NavBar = () => {
                                         <Nav.Link href="/playerteam">Player Teams</Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
-                                        <Nav.Link href="/profile">Mound-Visit Chat</Nav.Link>
+                                        <Nav.Link href="/profile">Fantasy Manager</Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item className="ml-auto">
-                                        <Nav.Link href="/" onClick = {sign_out}>Sign Out</Nav.Link>
+                                        <Nav.Link href="/" onClick = {sign_out}>Logout</Nav.Link>
                                     </Nav.Item>
                                 </AuthCheck>
                             </Suspense>
