@@ -4,6 +4,7 @@ import background_image from '../../assets/images/oracle.jpg'
 import { NavBar } from '../NavBar'
 import './searchstyles.css'
 import { getPlayerTeam } from '../PlayerTeamInfo'
+import { Table, Col, Row, Container, Form } from 'react-bootstrap'
 
 // makeStyles for the Player Stats Season Page
 
@@ -20,6 +21,7 @@ const useStyles = makeStyles({
         fontSize: '40px',
         fontFamily: 'Playball',
         fontWeight: 'normal',
+        color: "white"
     },
     table_title: {
         color: "white",
@@ -37,7 +39,7 @@ const useStyles = makeStyles({
         position: 'relative',
         marginTop: '15%',
         left: '50%',
-        transform: 'translate(-50%, -130%)',
+        transform: 'translate(-50%, -50%)',
         color: 'white',
         fontFamily: 'Roboto',
         fontSize: '25px',
@@ -92,6 +94,11 @@ export interface PlayerTeamProps {
     team: string
     start_date: string
     primary_position: string
+    jersey_number: string
+    forty_man_sw: string
+    status: string
+    team_abbrev: string
+    league: string
 }
 
 
@@ -118,6 +125,11 @@ export const PlayerTeam = () => {
                 team: '',
                 start_date: '',
                 primary_position: '',
+                jersey_number: '',
+                forty_man_sw:'',
+                status:'',
+                team_abbrev:'',
+                league:'',
             }
         )
         
@@ -150,33 +162,38 @@ export const PlayerTeam = () => {
                         </form>   
                     </div>
                 </div>
-            <div id="player-table">
-                <Suspense fallback = {<p>Loading</p>}>
-                <div>
-                        <h1 className = {classes.table_title}>{playerFullName.toUpperCase()} Team Played during {playerSeason}</h1> 
-                        <br />
-                        <br />
+                <h1 className = {classes.title}>{playerFullName.toUpperCase()} teams played: {playerSeason}</h1>
+                <Container className="my-auto">
+                        <Table striped bordered hover responsive="lg"variant="dark">
+                            <thead>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>Team Abbrev</th>
+                                    <th>League</th>
+                                    <th>League Abbrev</th>
+                                    <th>Primary Position Played</th>
+                                    <th>Jersey Number</th>
+                                    <th>Forty Man Roster</th>
+                                    <th>Active</th>
+                                    <th>Date Joined Team</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{playerTeam.team}</td>
+                                    <td>{playerTeam.team_abbrev}</td>
+                                    <td>{playerTeam.league_full}</td>
+                                    <td>{playerTeam.league}</td>
+                                    <td>{playerTeam.primary_position}</td>
+                                    <td>{playerTeam.jersey_number}</td>
+                                    <td>{playerTeam.forty_man_sw}</td>
+                                    <td>{playerTeam.status}</td>
+                                    <td>{month}/{day}/{year}</td>
 
-                        <table className = {classes.table_output}>
-                            <tr>
-                                <th className = {classes.output}>Team</th>
-                                <th className = {classes.output}>League</th>
-                                <th className = {classes.output}>Primary Position Played</th>
-                                <th className = {classes.output}>Date Joined Team</th>
-                            </tr>
-                    
-                            <tr>
-                                <td className = {classes.output}>{playerTeam.team}</td>
-                                <td className = {classes.output}>{playerTeam.league_full}</td>
-                                <td className = {classes.output}>{playerTeam.primary_position}</td>
-                                <td className = {classes.output}>{month}/{day}/{year}</td>
-                            </tr>
-                        </table>
-
-
-                </div>
-                </Suspense>
-            </div>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </Container>
             </main>
      </div>
     )

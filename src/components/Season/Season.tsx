@@ -4,6 +4,7 @@ import background_image from '../../assets/images/baseball.jpg'
 import {NavBar} from '../NavBar'
 import './searchstyles.css'
 import {getSeasonPlayerPitching, getProjectedSeason} from '../SeasonInfo'
+import { Table, Col, Row, Container, Form } from 'react-bootstrap'
 
 // makeStyles for the Player Stats Season Page
 
@@ -20,8 +21,7 @@ const useStyles = makeStyles({
         fontSize: '40px',
         fontFamily: 'Playball',
         fontWeight: 'normal',
-
-
+        color: "white",
     },
     table_title: {
         color: "white",
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
         position: 'relative',
         marginTop: '15%',
         left: '50%',
-        transform: 'translate(-50%, -130%)',
+        transform: 'translate(-50%, -50%)',
         color: 'white',
         fontFamily: 'Roboto',
         fontSize: '25px',
@@ -83,7 +83,10 @@ const useStyles = makeStyles({
         position: 'absolute',
     },
     searchbar: {
-        fontSize: "20px"
+        fontSize: "20px",
+    },
+    container: {
+        position: "fixed"
     }
 })
 
@@ -100,6 +103,19 @@ export interface ProjectedProps {
     sv: string
     w: string
     l: string
+    season: string
+    bb9: string
+    bk: string
+    er: string
+    h: string
+    h9: string
+    hr9: string
+    obp: string
+    ops: string
+    slg: string
+    wpct: string
+    svo: string
+    cg: string
 }
 
 export interface SeasonPitchingProps {
@@ -114,6 +130,18 @@ export interface SeasonPitchingProps {
     w: string
     l: string
     season: string
+    bb9: string
+    bk: string
+    er: string
+    h: string
+    h9: string
+    hr9: string
+    obp: string
+    ops: string
+    slg: string
+    wpct: string
+    svo: string
+    cg: string
 }
 
 // Start of Player Stats Dashboard
@@ -146,6 +174,19 @@ export const Season = () => {
                 sv: "",
                 w: "",
                 l: "",
+                season: '',
+                bb9: '',
+                bk: '',
+                er: '',
+                h: '',
+                h9: '',
+                hr9: '',
+                obp: '',
+                ops: '',
+                slg: '',
+                wpct: '',
+                svo: '',
+                cg: '',
             }
         )
     // Default Props for Pitching Data Table
@@ -162,6 +203,18 @@ export const Season = () => {
                 w: "",
                 l: "",
                 season: "",
+                bb9: '',
+                bk: '',
+                er: '',
+                h: '',
+                h9: '',
+                hr9: '',
+                obp: '',
+                ops: '',
+                slg: '',
+                wpct: '',
+                svo: '',
+                cg: '',
             }
         )
         
@@ -190,72 +243,124 @@ export const Season = () => {
                         </form>   
                     </div>
                 </div>
-                <div id="player-table">
-                <Suspense fallback = {<p>Loading</p>}>
-                <div>
-                        <h1 className = {classes.table_title}>{pitchingTableInfo.season} Season Stats - Projected vs Actual</h1> 
-                        <br />
-                        <br />
+                    <h1 className = {classes.title}>{playerSeason} Projected vs Actual</h1>
+                    <Container className="my-auto">
+                        <Table striped bordered hover responsive="lg"variant="dark">
+                            <thead>
+                                <tr>
+                                    <th>Season</th>
+                                    <th>ERA</th>
+                                    <th>ER</th>
+                                    <th>SO</th>
+                                    <th>BB</th>
+                                    <th>BB9</th>
+                                    <th>KBB</th>
+                                    <th>K/9</th>
+                                    <th>BK</th>
+                                    <th>H</th>
+                                    <th>H/9</th>
+                                    <th>HR/9</th>
+                                    <th>OBP(against)</th>
+                                    <th>SLG(against)</th>
+                                    <th>OPS(against)</th>
+                                    <th>whip</th>
+                                    <th>W</th>
+                                    <th>L</th>
+                                    <th>WPCT</th>
+                                    <th>SVO</th>
+                                    <th>SV</th>
+                                    <th>CG</th>
+                                    <th>IP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{projectedTableInfo.season}</td>
+                                    <td>{projectedTableInfo.era}</td>
+                                    <td>{projectedTableInfo.er}</td>
+                                    <td>{projectedTableInfo.so}</td>
+                                    <td>{projectedTableInfo.bb}</td>
+                                    <td>{projectedTableInfo.bb9}</td>
+                                    <td>{projectedTableInfo.kbb}</td>
+                                    <td>{projectedTableInfo.k9}</td>
+                                    <td>{projectedTableInfo.bk}</td>
+                                    <td>{projectedTableInfo.h}</td>
+                                    <td>{projectedTableInfo.h9}</td>
+                                    <td>{projectedTableInfo.hr9}</td>
+                                    <td>{projectedTableInfo.obp}</td>
+                                    <td>{projectedTableInfo.slg}</td>
+                                    <td>{projectedTableInfo.ops}</td>
+                                    <td>{projectedTableInfo.whip}</td>
+                                    <td>{projectedTableInfo.w}</td>
+                                    <td>{projectedTableInfo.l}</td>
+                                    <td>{projectedTableInfo.wpct}</td>
+                                    <td>{projectedTableInfo.svo}</td>
+                                    <td>{projectedTableInfo.sv}</td>
+                                    <td>{projectedTableInfo.cg}</td>
+                                    <td>{projectedTableInfo.ip}</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </Container>
 
-                        <table className = {classes.table_output}>
-                            <tr>
-                                <th className = {classes.output}>ERA</th>
-                                <th className = {classes.output}>SO</th>
-                                <th className = {classes.output}>BB</th>
-                                <th className = {classes.output}>KBB</th>
-                                <th className = {classes.output}>K/9</th>
-                                <th className = {classes.output}>whip</th>
-                                <th className = {classes.output}>W</th>
-                                <th className = {classes.output}>L</th>
-                                <th className = {classes.output}>SV</th>
-                                <th className = {classes.output}>IP</th>
-                            </tr>
-                    
-                            <tr>
-                                <td className = {classes.output}>{projectedTableInfo.era}</td>
-                                <td className = {classes.output}>{projectedTableInfo.so}</td>
-                                <td className = {classes.output}>{projectedTableInfo.bb}</td>
-                                <td className = {classes.output}>{projectedTableInfo.kbb}</td>
-                                <td className = {classes.output}>{projectedTableInfo.k9}</td>
-                                <td className = {classes.output}>{projectedTableInfo.whip}</td>
-                                <td className = {classes.output}>{projectedTableInfo.w}</td>
-                                <td className = {classes.output}>{projectedTableInfo.l}</td>
-                                <td className = {classes.output}>{projectedTableInfo.sv}</td>
-                                <td className = {classes.output}>{projectedTableInfo.ip}</td>
-                            </tr>
-                        </table>
-<br />
-<br />
-                        <table className = {classes.table_output}>
-                            <tr>
-                                <th className = {classes.output}>ERA</th>
-                                <th className = {classes.output}>SO</th>
-                                <th className = {classes.output}>BB</th>
-                                <th className = {classes.output}>KBB</th>
-                                <th className = {classes.output}>K/9</th>
-                                <th className = {classes.output}>whip</th>
-                                <th className = {classes.output}>W</th>
-                                <th className = {classes.output}>L</th>
-                                <th className = {classes.output}>SV</th>
-                                <th className = {classes.output}>IP</th>
-                            </tr>
-                            <tr>
-                                <td className = {classes.output}>{pitchingTableInfo.era}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.so}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.bb}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.kbb}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.k9}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.whip}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.w}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.l}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.sv}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.ip}</td>
-                            </tr>
-                        </table>
-
-                    </div>
-                </Suspense>
-                </div>
+                    <Container className="my-auto">
+                        <Table striped bordered hover responsive="lg"variant="dark" >
+                            <thead>
+                                <tr>
+                                    <th>Season</th>
+                                    <th>ERA</th>
+                                    <th>ER</th>
+                                    <th>SO</th>
+                                    <th>BB</th>
+                                    <th>BB9</th>
+                                    <th>KBB</th>
+                                    <th>K/9</th>
+                                    <th>BK</th>
+                                    <th>H</th>
+                                    <th>H/9</th>
+                                    <th>HR/9</th>
+                                    <th>OBP(against)</th>
+                                    <th>SLG(against)</th>
+                                    <th>OPS(against)</th>
+                                    <th>whip</th>
+                                    <th>W</th>
+                                    <th>L</th>
+                                    <th>WPCT</th>
+                                    <th>SVO</th>
+                                    <th>SV</th>
+                                    <th>CG</th>
+                                    <th>IP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{pitchingTableInfo.season}</td>
+                                    <td>{pitchingTableInfo.era}</td>
+                                    <td>{pitchingTableInfo.er}</td>
+                                    <td>{pitchingTableInfo.so}</td>
+                                    <td>{pitchingTableInfo.bb}</td>
+                                    <td>{pitchingTableInfo.bb9}</td>
+                                    <td>{pitchingTableInfo.kbb}</td>
+                                    <td>{pitchingTableInfo.k9}</td>
+                                    <td>{pitchingTableInfo.bk}</td>
+                                    <td>{pitchingTableInfo.h}</td>
+                                    <td>{pitchingTableInfo.h9}</td>
+                                    <td>{pitchingTableInfo.hr9}</td>
+                                    <td>{pitchingTableInfo.obp}</td>
+                                    <td>{pitchingTableInfo.slg}</td>
+                                    <td>{pitchingTableInfo.ops}</td>
+                                    <td>{pitchingTableInfo.whip}</td>
+                                    <td>{pitchingTableInfo.w}</td>
+                                    <td>{pitchingTableInfo.l}</td>
+                                    <td>{pitchingTableInfo.wpct}</td>
+                                    <td>{pitchingTableInfo.svo}</td>
+                                    <td>{pitchingTableInfo.sv}</td>
+                                    <td>{pitchingTableInfo.cg}</td>
+                                    <td>{pitchingTableInfo.ip}</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </Container>
             </main>
         </div>
     )

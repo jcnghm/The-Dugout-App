@@ -1,9 +1,10 @@
 import React, { useState,  Suspense } from "react";
-import { makeStyles, Button } from '@material-ui/core';
+import { makeStyles, Button} from '@material-ui/core';
 import background_image from '../../assets/images/dashboard_background.jpg'
 import {NavBar} from '../NavBar'
 import './searchstyles.css'
 import {getPlayerInfo, getPlayerHitting, getPlayerPitching} from '../PlayerInfo'
+import { Table, Col, Row, Container, Form } from 'react-bootstrap'
 
 
 // makeStyles for the Player Stats Dashboard Page
@@ -28,20 +29,21 @@ const useStyles = makeStyles({
         marginLeft: "20px",
     },
     bootstrap_table: {
-        color: "white",
+        width: "60%",
+        alignItems: "centered"
     },
     table: {
         justifyContent: 'center',
         textAlign: 'center',
         position: 'relative',
-        marginTop: '15%',
-        left: '50%',
-        transform: 'translate(-50%, -130%)',
+        marginTop: '10%',
+        transform: 'translate(50%, -40%)',
         color: 'white',
         fontFamily: 'Roboto',
         fontSize: '25px',
         width: "50%",
         borderRadius: "12px",
+
 
     },
     table_output: {
@@ -51,16 +53,8 @@ const useStyles = makeStyles({
         transform: 'translate(0%, -120%)',
     },
     output: {
-        paddingLeft: "15px",
-        paddingRight: "15px",
-        textAlign: 'center',
-        position: 'relative',
-        marginTop: '10px',
-        color: 'white',
-        fontFamily: 'Times New Roman',
-        fontSize: '18px',
-        width: "50%",
-        border: "3px solid white",
+        width: "100%",
+
     },
     searchForm: {
         width: '300px',
@@ -110,6 +104,10 @@ export interface TableProps {
     throws: string
     bats: string
     pro_debut_date: string
+    height_feet: string
+    height_inches: string
+    weight: string
+    high_school: string
 }
 
 export interface HittingProps {
@@ -123,6 +121,18 @@ export interface HittingProps {
     so: string
     bb: string
     ab: string
+    gidp: string
+    go: string
+    go_ao: string
+    hbp: string
+    hfly: string
+    hgnd: string
+    ppa: string
+    tpa: string
+    r: string
+    roe: string
+    sb: string
+    xbh: string
 }
 
 export interface PitchingProps {
@@ -136,6 +146,18 @@ export interface PitchingProps {
     sv: string
     w: string
     l: string
+    bb9: string
+    bk: string
+    er: string
+    h: string
+    h9: string
+    hr9: string
+    obp: string
+    ops: string
+    slg: string
+    wpct: string
+    svo: string
+    cg: string
 }
 
 // Start of Player Stats Dashboard
@@ -171,7 +193,11 @@ export const Dashboard = () => {
                 college: "",
                 throws: "",
                 bats: "",
-                pro_debut_date: ""
+                pro_debut_date: "",
+                height_feet: "",
+                height_inches: "",
+                weight: "",
+                high_school:"",
             }
         )
     // Default Props for Hitting Data Table
@@ -187,6 +213,18 @@ export const Dashboard = () => {
                 so: "",
                 bb: "",
                 ab: "",
+                gidp: '',
+                go: '',
+                go_ao:'',
+                hbp:'',
+                hfly:'',
+                hgnd:'',
+                ppa:'',
+                tpa:'',
+                r:'',
+                roe:'',
+                sb:'',
+                xbh:'',
             }
         )
     // Default Props for Pitching Data Table
@@ -202,12 +240,26 @@ export const Dashboard = () => {
                 sv: "",
                 w: "",
                 l: "",
+                bb9:'',
+                bk:'',
+                er:'',
+                h:'',
+                h9:'',
+                hr9:'',
+                obp:'',
+                ops:'',
+                slg:'',
+                wpct:'',
+                svo:'',
+                cg:'',
             }
         )
         
         // Date formatting for Debut Date
         let debut_date = playerTableInfo.pro_debut_date;
         let debut = debut_date.slice(0,4)
+
+        let height = `${playerTableInfo.height_feet}'${playerTableInfo.height_inches}"`
 
     return (
 
@@ -219,9 +271,8 @@ export const Dashboard = () => {
 
             {/* Main Player Stats Table Search Section */}
 
-            <main className={classes.main}>
+             <main className={classes.main}>
                 <div className={classes.table}>
-        
                     <div >
                         <h1 className = {classes.title}>Player Career Statistics</h1>
                         <form name="player-info" id="player-info" onSubmit={submitForm} >
@@ -232,92 +283,157 @@ export const Dashboard = () => {
                         </form>   
                     </div>
                 </div>
-                <div id="player-table">
-                <Suspense fallback = {<p>Loading</p>}>
-                <div>
-                
-                        <table className = {classes.table_output}>
+               
+                <Container className="my-auto">
+                    <Table striped bordered hover responsive="lg"variant="dark">
+                        <thead>
                             <tr>
-                                <th className = {classes.output}>Name</th>
-                                <th className = {classes.output}>Birthplace</th>
-                                <th className = {classes.output}>Age</th>
-                                <th className = {classes.output}>Nickname</th>
-                                <th className = {classes.output}>College</th>
-                                <th className = {classes.output}>MLB Debut</th>
-                                <th className = {classes.output}>Team Name</th>
-                                <th className = {classes.output}>Throws</th>
-                                <th className = {classes.output}>Bats</th>
+                                <th >Name</th>
+                                <th >Birthplace</th>
+                                <th >Age</th>
+                                <th>Height</th>
+                                <th>Weight</th>
+                                <th >Nickname</th>
+                                <th>High School</th>
+                                <th >College</th>
+                                <th >MLB Debut</th>
+                                <th >Team Name</th>
+                                <th >Throws</th>
+                                <th >Bats</th>
+
                             </tr>
+                        </thead>
+                        <tbody>
                             <tr>
-                                <td className = {classes.output}>{playerTableInfo.name_display_first_last}</td>
-                                <td className = {classes.output}>{playerTableInfo.birth_city} {playerTableInfo.birth_state} {playerTableInfo.birth_country}</td>
-                                <td className = {classes.output}>{playerTableInfo.age}</td>
-                                <td className = {classes.output}>{playerTableInfo.name_nick}</td>
-                                <td className = {classes.output}>{playerTableInfo.college}</td>
-                                <td className = {classes.output}>{debut}</td>
-                                <td className = {classes.output}>{playerTableInfo.team_name}</td>
-                                <td className = {classes.output}>{playerTableInfo.throws}</td>
-                                <td className = {classes.output}>{playerTableInfo.bats}</td>
+                                <td >{playerTableInfo.name_display_first_last}</td>
+                                <td >{playerTableInfo.birth_city} {playerTableInfo.birth_state} {playerTableInfo.birth_country}</td>
+                                <td >{playerTableInfo.age}</td>
+                                <td>{height}</td>
+                                <td>{playerTableInfo.weight}</td>
+                                <td >{playerTableInfo.name_nick}</td>
+                                <td>{playerTableInfo.high_school}</td>
+                                <td >{playerTableInfo.college}</td>
+                                <td >{debut}</td>
+                                <td >{playerTableInfo.team_name}</td>
+                                <td >{playerTableInfo.throws}</td>
+                                <td >{playerTableInfo.bats}</td>
                             </tr>
-                        </table>
-                        <h1 className = {classes.table_title}>Career Stats</h1>
-                        <table className = {classes.table_output}>
+                        </tbody>
+                    </Table>
+                </Container>
+                <Container className="my-auto">
+                    <Table striped bordered hover responsive="lg"variant="dark" className= {classes.output}>
+                        <thead>
                             <tr>
-                                <th className = {classes.output}>AVG</th>
-                                <th className = {classes.output}>H</th>
-                                <th className = {classes.output}>OBP</th>
-                                <th className = {classes.output}>SLG</th>
-                                <th className = {classes.output}>OPS</th>
-                                <th className = {classes.output}>RBI</th>
-                                <th className = {classes.output}>HR</th>
-                                <th className = {classes.output}>SO</th>
-                                <th className = {classes.output}>BB</th>
-                                <th className = {classes.output}>AB</th>
+                                <th>AVG</th>
+                                <th>H</th>
+                                <th>OBP</th>
+                                <th>SLG</th>
+                                <th>OPS</th>
+                                <th>RBI</th>
+                                <th>HR</th>
+                                <th>SO</th>
+                                <th>BB</th>
+                                <th>GIDP</th>
+                                <th>GO</th>
+                                <th>GO/AO</th>
+                                <th>HBP</th>
+                                <th>HFLY</th>
+                                <th>HGND</th>
+                                <th>PPA</th>
+                                <th>TPA</th>
+                                <th>R</th>
+                                <th>ROE</th>
+                                <th>SB</th>
+                                <th>XBH</th>
+                                <th>AB</th>
                             </tr>
+                        </thead>
+                        <tbody>
                             <tr>
-                                <td className = {classes.output}>{hittingTableInfo.avg}</td>
-                                <td className = {classes.output}>{hittingTableInfo.h}</td>
-                                <td className = {classes.output}>{hittingTableInfo.obp}</td>
-                                <td className = {classes.output}>{hittingTableInfo.slg}</td>
-                                <td className = {classes.output}>{hittingTableInfo.ops}</td>
-                                <td className = {classes.output}>{hittingTableInfo.rbi}</td>
-                                <td className = {classes.output}>{hittingTableInfo.hr}</td>
-                                <td className = {classes.output}>{hittingTableInfo.so}</td>
-                                <td className = {classes.output}>{hittingTableInfo.bb}</td>
-                                <td className = {classes.output}>{hittingTableInfo.ab}</td>
+                                <td>{hittingTableInfo.avg}</td>
+                                <td>{hittingTableInfo.h}</td>
+                                <td>{hittingTableInfo.obp}</td>
+                                <td>{hittingTableInfo.slg}</td>
+                                <td>{hittingTableInfo.ops}</td>
+                                <td>{hittingTableInfo.rbi}</td>
+                                <td>{hittingTableInfo.hr}</td>
+                                <td>{hittingTableInfo.so}</td>
+                                <td>{hittingTableInfo.bb}</td>
+                                <td>{hittingTableInfo.gidp}</td>
+                                <td>{hittingTableInfo.go}</td>
+                                <td>{hittingTableInfo.go_ao}</td>
+                                <td>{hittingTableInfo.hbp}</td>
+                                <td>{hittingTableInfo.hfly}</td>
+                                <td>{hittingTableInfo.hgnd}</td>
+                                <td>{hittingTableInfo.ppa}</td>
+                                <td>{hittingTableInfo.tpa}</td>
+                                <td>{hittingTableInfo.r}</td>
+                                <td>{hittingTableInfo.roe}</td>
+                                <td>{hittingTableInfo.sb}</td>
+                                <td>{hittingTableInfo.xbh}</td>
+                                <td>{hittingTableInfo.ab}</td>
                             </tr>
-                        </table>
-                        
-                        <table className = {classes.table_output}>
+                        </tbody>
+                    </Table>
+                </Container>
+
+                <Container className="my-auto">
+                    <Table striped bordered hover responsive="lg"variant="dark">
+                        <thead>
                             <tr>
-                                <th className = {classes.output}>ERA</th>
-                                <th className = {classes.output}>SO</th>
-                                <th className = {classes.output}>BB</th>
-                                <th className = {classes.output}>KBB</th>
-                                <th className = {classes.output}>K/9</th>
-                                <th className = {classes.output}>whip</th>
-                                <th className = {classes.output}>W</th>
-                                <th className = {classes.output}>L</th>
-                                <th className = {classes.output}>SV</th>
-                                <th className = {classes.output}>IP</th>
+                                    <th>ERA</th>
+                                    <th>ER</th>
+                                    <th>SO</th>
+                                    <th>BB</th>
+                                    <th>BB9</th>
+                                    <th>KBB</th>
+                                    <th>K/9</th>
+                                    <th>BK</th>
+                                    <th>H</th>
+                                    <th>H/9</th>
+                                    <th>HR/9</th>
+                                    <th>OBP(against)</th>
+                                    <th>SLG(against)</th>
+                                    <th>OPS(against)</th>
+                                    <th>whip</th>
+                                    <th>W</th>
+                                    <th>L</th>
+                                    <th>WPCT</th>
+                                    <th>SVO</th>
+                                    <th>SV</th>
+                                    <th>CG</th>
+                                    <th>IP</th>
                             </tr>
-                            
+                        </thead>
+                        <tbody>
                             <tr>
-                                <td className = {classes.output}>{pitchingTableInfo.era}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.so}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.bb}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.kbb}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.k9}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.whip}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.w}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.l}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.sv}</td>
-                                <td className = {classes.output}>{pitchingTableInfo.ip}</td>
+                                <td>{pitchingTableInfo.era}</td>
+                                <td>{pitchingTableInfo.er}</td>
+                                <td>{pitchingTableInfo.so}</td>
+                                <td>{pitchingTableInfo.bb}</td>
+                                <td>{pitchingTableInfo.bb9}</td>
+                                <td>{pitchingTableInfo.kbb}</td>
+                                <td>{pitchingTableInfo.k9}</td>
+                                <td>{pitchingTableInfo.bk}</td>
+                                <td>{pitchingTableInfo.h}</td>
+                                <td>{pitchingTableInfo.h9}</td>
+                                <td>{pitchingTableInfo.hr9}</td>
+                                <td>{pitchingTableInfo.obp}</td>
+                                <td>{pitchingTableInfo.slg}</td>
+                                <td>{pitchingTableInfo.ops}</td>
+                                <td>{pitchingTableInfo.whip}</td>
+                                <td>{pitchingTableInfo.w}</td>
+                                <td>{pitchingTableInfo.l}</td>
+                                <td>{pitchingTableInfo.wpct}</td>
+                                <td>{pitchingTableInfo.svo}</td>
+                                <td>{pitchingTableInfo.sv}</td>
+                                <td>{pitchingTableInfo.cg}</td>
+                                <td>{pitchingTableInfo.ip}</td>
                             </tr>
-                        </table>
-                    </div>
-                </Suspense>
-                </div>
+                        </tbody>
+                    </Table>
+                </Container>                
             </main>
         </div>
     )

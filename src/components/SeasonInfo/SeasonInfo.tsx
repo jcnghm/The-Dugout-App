@@ -11,6 +11,7 @@ export async function getProjectedSeason(fullName:string, season:string) {
   // This uses playerID and calls API for projected pitching data by season
   let projected = await axios.get(`http://lookup-service-prod.mlb.com/json/named.proj_pecota_pitching.bam?season='${season}'&player_id='${playerID}'`)
   let projectedPitching = projected.data.proj_pecota_pitching.queryResults.row
+  console.log(projectedPitching)
 
   return(
     projectedPitching

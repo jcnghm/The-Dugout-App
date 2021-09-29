@@ -141,9 +141,7 @@ export const NavBar = () => {
                                     <Nav.Item>
                                         <Nav.Link href="/signin">SignIn</Nav.Link>
                                     </Nav.Item>
-                                }>  <Nav.Item>
-                                        <Nav.Link href="/profile">Profile</Nav.Link>
-                                    </Nav.Item>
+                                }>  
                                     <Nav.Item>
                                     <   Nav.Link href="/dashboard">Career Stats</Nav.Link>
                                     </Nav.Item>
@@ -152,6 +150,9 @@ export const NavBar = () => {
                                     </Nav.Item>
                                     <Nav.Item>
                                         <Nav.Link href="/playerteam">Player Teams</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link href="/profile">Mound-Visit Chat</Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item className="ml-auto">
                                         <Nav.Link href="/" onClick = {sign_out}>Sign Out</Nav.Link>
