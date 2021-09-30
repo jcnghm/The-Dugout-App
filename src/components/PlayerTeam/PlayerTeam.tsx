@@ -1,6 +1,6 @@
 import React, { useState,  Suspense } from "react";
 import { makeStyles, Button } from '@material-ui/core';
-import background_image from '../../assets/images/oracle.jpg'
+import background_image from '../../assets/images/fantasy.jpg'
 import { NavBar } from '../NavBar'
 import './searchstyles.css'
 import { getPlayerTeam } from '../PlayerTeamInfo'
@@ -21,7 +21,8 @@ const useStyles = makeStyles({
         fontSize: '40px',
         fontFamily: 'Playball',
         fontWeight: 'normal',
-        color: "white"
+        color: "white",
+        marginLeft: "20px",
     },
     table_title: {
         color: "white",

@@ -81,44 +81,6 @@ export const NavBar = () => {
     const classes = useStyles();
 
     return (
-        // <nav>
-        //         <div className={classes.navbar_container}>
-        //             <h1 className={ `${classes.logo} `}>
-        //                 <Link to="/"><img className={`${classes.logoImage}`}src= {logo_image}  alt="logo"/></Link>
-        //                 {/* <a href="/" className={ `${classes.logo_a} ${classes.logo_navigation}` }>The Dugout</a> */}
-                        
-        //             </h1>
-        //             <ul className={ `${classes.navigation} ${classes.logo_navigation}` }>
-        //                 <li>
-        //                     <Link to="/" className={classes.nav_a}>Home</Link>
-        //                 </li>
-        //                  <Suspense fallback={'loading...'}> 
-        //                      <AuthCheck fallback={ 
-        //                         <li>
-        //                             <Link to="/signin" className={classes.nav_a}>Sign In</Link>
-        //                         </li>
-        //                         }> 
-        //                         <li>
-        //                             <Link to="/profile" className={classes.nav_a}>Profile</Link>
-        //                         </li>
-
-        //                         <li>
-        //                             <Link to="/dashboard" className={classes.nav_a}>Career Stats</Link>
-        //                         </li>
-        //                         <li>
-        //                             <Link to="/season" className={classes.nav_a}>Season Stats</Link>
-        //                         </li>
-        //                         <li>
-        //                             <Link to="/playerteam" className={classes.nav_a}>Player Teams</Link>
-        //                         </li>
-        //                         <li>
-        //                             <Link to="/" className={classes.nav_a} onClick={sign_out}>Sign Out</Link>
-        //                         </li>
-        //                     </AuthCheck>
-		// 				</Suspense>
-        //             </ul>
-        //         </div>
-        //     </nav>
         <Navbar bg="black" expand="md" variant="dark" >
             <Container>
                 <Navbar.Brand href="/">

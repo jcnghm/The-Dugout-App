@@ -20,15 +20,10 @@ import { Drawer as MUIDrawer,
     DialogContentText, 
     DialogTitle 
 } from '@material-ui/core';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import clsx from 'clsx';
 import { RouteComponentProps, withRouter, Switch, Route } from "react-router-dom";
 import { ChatTable, ChatForm } from '../../components'; 
 import { NavBar } from '../../components'
-import background_image from '../../assets/images/homeplate.jpg'
+import background_image from '../../assets/images/fantasy.jpg'
 
 
 const drawerWidth = 240;
@@ -39,8 +34,14 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column'
     },
+    // table: {
+    //   backgroundColor: "white",
+    //   display:'flex',
+
+    // },
     main: {
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${background_image});`,
+        backgroundColor: "#ddb892",
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));`,
         width: '100%',
         height: '100%',
         backgroundSize: 'cover',
@@ -132,6 +133,7 @@ export const Profile = withRouter(( props:DashProps ) => {
     
     return (
       <div className={classes.root}>
+        <div className={classes.main}>
             <div>
             <NavBar/>
             </div>
@@ -151,7 +153,10 @@ export const Profile = withRouter(( props:DashProps ) => {
                     </DialogActions>
                 </Dialog>
             </div>
-        <ChatTable />
+            <div>
+            <ChatTable />
+            </div>
+        </div>
       </div>
       )
 });

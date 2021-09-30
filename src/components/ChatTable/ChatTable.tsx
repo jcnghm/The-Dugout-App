@@ -10,12 +10,13 @@ import { Button,
   DialogTitle } from '@material-ui/core'; 
 import { ChatForm } from '../../components/ChatForm';
 
+
 const columns: GridColDef[] = [
-    { 
-      field: 'id', 
-      headerName: 'ID', 
-      width: 110 
-    },
+    // { 
+    //   field: 'id', 
+    //   headerName: 'ID', 
+    //   width: 110 
+    // },
     { 
       field: 'name', 
       headerName: 'Player Name', 
@@ -72,9 +73,9 @@ const columns: GridColDef[] = [
   
   
       return (
-          <div style={{ height: 400, width: '100%' }}>
+          <div style={{ height: 400, width: '100%', color: "white" }}>
             <h2>Your Fantasy Roster</h2>
-            <DataGrid rows={heroData} columns={columns} pageSize={10} checkboxSelection onSelectionModelChange={(newSelectionModel) => {
+            <DataGrid rows={heroData} columns={columns} pageSize={5} checkboxSelection onSelectionModelChange={(newSelectionModel) => {
               setData(newSelectionModel);
             }}
             selectionModel={gridData}

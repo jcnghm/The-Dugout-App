@@ -1,8 +1,8 @@
-let token = `YOUR-API-TOKEN-HERE`
+let token = `72a67ec972f49277fc7f1c248274c703f854fd07827a0ece`
 
 export const server_calls = {
     get: async () => {
-        const response = await fetch(`YOUR-URL-HERE`,{
+        const response = await fetch(`http://127.0.0.1:5000/api/heroes`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export const server_calls = {
     },
 
     create: async(data: any = {}) => {
-        const response = await fetch(`YOUR-URL-HERE`,{
+        const response = await fetch(`http://127.0.0.1:5000/api/heroes`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export const server_calls = {
         return await response.json()
     },
     update: async (id:string, data:any = {}) => {
-        const response = await fetch(`YOUR-URL-HERE/${id}`, {
+        const response = await fetch(`http://127.0.0.1:5000/api/heroes/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export const server_calls = {
         });
     },
     delete: async(id:string) => {
-        const response = await fetch(`YOUR-URL-HERE/${id}`,{
+        const response = await fetch(`http://127.0.0.1:5000/api/heroes/${id}`,{
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
