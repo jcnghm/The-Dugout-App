@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
     // },
     main: {
-        backgroundColor: "#ddb892",
+        backgroundColor: "#d08c60",
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));`,
         width: '100%',
         height: '100%',

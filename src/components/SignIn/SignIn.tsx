@@ -6,7 +6,7 @@ import { Input } from '../sharedComponents/Input';
 import { Container, Button, makeStyles, Typography, Snackbar,  } from '@material-ui/core';
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
-import background_image from '../../assets/images/signin.jpg'
+import background_image from '../../assets/images/fantasy.jpg'
 import {NavBar} from '../NavBar'
 
 
@@ -131,9 +131,9 @@ export const SignIn = withRouter( (props:SignInProps) => {
                 </div>
                 <div>
                     <label htmlFor="password">Password</label>
-                    <Input  name="password" placeholder='Password' />
+                    <Input name="password" placeholder='Password' />
                 </div>
-                <Button type='submit' variant='contained' color='primary'>Submit</Button>
+                <Button type='submit' variant='contained' color='primary' onClick={sign_in}>Submit</Button>
                 </form>
                 
                 <AuthCheck fallback={

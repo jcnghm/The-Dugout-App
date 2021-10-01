@@ -1,4 +1,13 @@
 # The Dugout MLB Player Statistics App
 
-This full stack web application was built using React for the front end and Flask for the back end
+The Dugout is a Full stack application built using an React Typescript front end and Flask Python back end with a PostgreSQL database.
 
+![Site Image Example](https://https://github.com/jcnghm/The-Dugout-App/tree/master/src/assets/images/github5.PNG)
+
+![Site Image Example](https://https://github.com/jcnghm/The-Dugout-App/tree/master/src/assets/images/github1.PNG)
+
+![Site Image Example](https://https://github.com/jcnghm/The-Dugout-App/tree/master/src/assets/images/github2.PNG)
+
+![Site Image Example](https://https://github.com/jcnghm/The-Dugout-App/tree/master/src/assets/images/github3.PNG)
+
+![Site Image Example](https://https://github.com/jcnghm/The-Dugout-App/tree/master/src/assets/images/github4.PNG)

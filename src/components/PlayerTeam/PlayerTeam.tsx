@@ -1,6 +1,6 @@
 import React, { useState,  Suspense } from "react";
 import { makeStyles, Button } from '@material-ui/core';
-import background_image from '../../assets/images/fantasy.jpg'
+import background_image from '../../assets/images/signin.jpg'
 import { NavBar } from '../NavBar'
 import './searchstyles.css'
 import { getPlayerTeam } from '../PlayerTeamInfo'
