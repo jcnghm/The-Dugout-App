@@ -34,14 +34,13 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column'
     },
-    // table: {
-    //   backgroundColor: "white",
-    //   display:'flex',
-
-    // },
+    tablesize: {
+      width: '70%',
+      marginLeft: "15%",
+    },
     main: {
         backgroundColor: "#d08c60",
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));`,
+        backgroundImage: `linear-gradient(to bottom right, #b08968, #582f0e);`,
         width: '100%',
         height: '100%',
         backgroundSize: 'cover',
@@ -103,7 +102,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex'
     },
     toolbar_button: {
-      marginLeft: 'auto'
+      marginLeft: '15%'
     }
   }),
 );
@@ -139,12 +138,12 @@ export const Profile = withRouter(( props:DashProps ) => {
             </div>
             <br />
             <div>
-                <Button className={classes.toolbar_button} variant="contained"onClick={handleDialogClickOpen}>Add New Player</Button>
+                <Button className={classes.toolbar_button} variant="contained"onClick={handleDialogClickOpen}>Add Player</Button>
                 <br />
                 <br />
                 <Dialog open={dialogOpen} onClose={handleDialogClickClose} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Add Player</DialogTitle>
-                    <DialogContent>
+                    <DialogContent >
                     <DialogContentText>Place Player Info Here</DialogContentText>
                         <ChatForm />
                     </DialogContent>
@@ -153,7 +152,7 @@ export const Profile = withRouter(( props:DashProps ) => {
                     </DialogActions>
                 </Dialog>
             </div>
-            <div>
+            <div className={classes.tablesize}>
             <ChatTable />
             </div>
         </div>

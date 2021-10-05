@@ -12,34 +12,29 @@ import { ChatForm } from '../../components/ChatForm';
 
 
 const columns: GridColDef[] = [
-    // { 
-    //   field: 'id', 
-    //   headerName: 'ID', 
-    //   width: 110 
-    // },
     { 
       field: 'name', 
       headerName: 'Player Name', 
-      width: 300, 
+      width: 200, 
       editable: true, 
     },
     { 
       field: 'team', 
       headerName: 'Team', 
-      width: 300, 
+      width: 260, 
       editable: true, 
     },
     { 
       field: 'league', 
       headerName: 'League', 
-      width: 300, 
+      width: 250, 
       editable: true, 
     },
     {
       field: 'position',
       headerName: 'Position',
       type: 'number',
-      width: 200,
+      width: 150,
       editable: true,   
     },
     {
@@ -81,14 +76,16 @@ const columns: GridColDef[] = [
             selectionModel={gridData}
             {...heroData}/>
             <br />
-          <Button onClick={handleOpen} color='primary' variant='contained'>Update</Button>
-          <Button variant="contained" color="secondary" onClick={deleteData}>Delete</Button>
+          <Button onClick={handleOpen} color='primary' variant='contained'>Update Player</Button>
+          <br />
+          <br />
+          <Button variant="contained" color="secondary" onClick={deleteData}>Delete Player</Button>
   
             {/*Dialog Pop Up begin */}
           <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Update Player Information</DialogTitle>
             <DialogContent>
-              <DialogContentText>Player: {gridData[0]}</DialogContentText>
+              <DialogContentText>Player ID: {gridData[0]}</DialogContentText>
                 <ChatForm id={`${gridData[0]}`}/>
             </DialogContent>
             <DialogActions>
