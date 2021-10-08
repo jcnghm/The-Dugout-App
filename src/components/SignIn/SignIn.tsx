@@ -10,7 +10,6 @@ import background_image from '../../assets/images/fantasy.jpg'
 import {NavBar} from '../NavBar'
 
 
-
 const Alert = (props:AlertProps) => {
     return <MuiAlert elevation={6} variant='filled' {...props} />;
 }

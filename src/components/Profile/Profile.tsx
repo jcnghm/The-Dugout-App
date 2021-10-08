@@ -1,18 +1,9 @@
 import React, { useState} from 'react';
 import { Drawer as MUIDrawer, 
-    ListItem, 
-    List, 
-    ListItemIcon, 
-    ListItemText, 
     Theme,
     useTheme, 
     makeStyles, 
     createStyles,
-    AppBar,
-    Toolbar,
-    IconButton,
-    Typography,
-    Divider,
     Button,
     Dialog,
     DialogActions, 
@@ -23,7 +14,6 @@ import { Drawer as MUIDrawer,
 import { RouteComponentProps, withRouter, Switch, Route } from "react-router-dom";
 import { ChatTable, ChatForm } from '../../components'; 
 import { NavBar } from '../../components'
-import background_image from '../../assets/images/fantasy.jpg'
 
 
 const drawerWidth = 240;
