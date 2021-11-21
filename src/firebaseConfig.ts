@@ -1,8 +1,8 @@
 export const firebaseConfig = {
-  apiKey: "AIzaSyAOeH_F1flEFLF0c9RDO6sVTQuLhTKSJrg",
-  authDomain: "dugout-app.firebaseapp.com",
-  projectId: "dugout-app",
-  storageBucket: "dugout-app.appspot.com",
-  messagingSenderId: "570537538464",
-  appId: "1:570537538464:web:296b021f180159ba1f6ac5"
-};
+    apiKey: "AIzaSyCKd-PGqQTVCmlIgOUozqcvrkth_0Y2g9o",
+    authDomain: "my-d-a9d71.firebaseapp.com",
+    projectId: "my-d-a9d71",
+    storageBucket: "my-d-a9d71.appspot.com",
+    messagingSenderId: "151297309294",
+    appId: "1:151297309294:web:8f836fd00079fab563c47f"
+  };

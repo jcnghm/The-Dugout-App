@@ -6,7 +6,7 @@ import './styles.css'
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
-import { FirebaseAppProvider, AuthCheck } from 'reactfire'; 
+import { FirebaseAppProvider } from 'reactfire'; 
 import 'firebase/auth'; 
 import { firebaseConfig } from './firebaseConfig' 
 
