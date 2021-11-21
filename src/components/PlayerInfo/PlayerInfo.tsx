@@ -6,11 +6,11 @@ import axios from 'axios'
 export async function getPlayerInfo(fullName: string) {
 
   // This grabs playerID from form with input Full Name
-  let response = await axios.get(`http://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='${fullName}'`)
+  let response = await axios.get(`https://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='${fullName}'`)
   let playerID = response.data.search_player_all.queryResults.row.player_id
 
   // This uses playerID and calls API for player info data
-  let info = await axios.get(`http://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code='mlb'&player_id='${playerID}'`)
+  let info = await axios.get(`https://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code='mlb'&player_id='${playerID}'`)
   console.log(info.data.player_info.queryResults.row)
   let queryInfo = info.data.player_info.queryResults.row
     if (queryInfo === undefined) {
