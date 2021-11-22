@@ -2,9 +2,7 @@
 
 The Dugout is a Full stack application built using an React Typescript front end and Flask Python back end with a PostgreSQL database.
 
-***MLB API DOWN FOR MAINT. UNTIL 11/19/2021, APP DOWN UNTIL THEN.***
-
-[View Live](https://my-dugout.web.app/)
+[View Live](https://my-d-a9d71.web.app/)
 
 Created by: [Joshua Cunningham](https://www.linkedin.com/in/joshua-cunningham-wa/)
 
