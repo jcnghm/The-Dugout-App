@@ -41,11 +41,11 @@ export async function getPlayerInfo(fullName: string) {
 export async function getPlayerHitting(fullName: string) {
 
   // This grabs playerID from form with input Full Name
-  let response = await axios.get(`http://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='${fullName}'`)
+  let response = await axios.get(`https://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='${fullName}'`)
   let playerID = response.data.search_player_all.queryResults.row.player_id
 
   // This uses playerID and calls API for hitting data
-  let hitting = await axios.get(`http://lookup-service-prod.mlb.com/json/named.sport_career_hitting.bam?league_list_id='mlb'&game_type='R'&player_id='${playerID}'`)
+  let hitting = await axios.get(`https://lookup-service-prod.mlb.com/json/named.sport_career_hitting.bam?league_list_id='mlb'&game_type='R'&player_id='${playerID}'`)
   console.log(hitting.data.sport_career_hitting.queryResults.row)
   let hittingInfo = hitting.data.sport_career_hitting.queryResults.row
     if (hittingInfo === undefined){
@@ -85,11 +85,11 @@ export async function getPlayerHitting(fullName: string) {
 export async function getPlayerPitching(fullName: string) {
 
   // This grabs playerID from form with input Full Name
-  let response = await axios.get(`http://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='${fullName}'`)
+  let response = await axios.get(`https://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='${fullName}'`)
   let playerID = response.data.search_player_all.queryResults.row.player_id
 
   // This uses playerID and calls API for pitching data
-  let pitching = await axios.get(`http://lookup-service-prod.mlb.com/json/named.sport_career_pitching.bam?league_list_id='mlb'&game_type='R'&player_id='${playerID}'`)
+  let pitching = await axios.get(`https://lookup-service-prod.mlb.com/json/named.sport_career_pitching.bam?league_list_id='mlb'&game_type='R'&player_id='${playerID}'`)
   console.log(pitching.data.sport_career_pitching.queryResults.row)
   let pitchingInfo = pitching.data.sport_career_pitching.queryResults.row
     if (pitchingInfo === undefined){

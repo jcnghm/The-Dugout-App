@@ -50,11 +50,11 @@ export async function getProjectedSeason(fullName:string, season:string) {
 export async function getSeasonPlayerPitching(fullName: string, season: string) {
 
   // This grabs playerID from form with input Full Name
-  let response = await axios.get(`http://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='${fullName}'`)
+  let response = await axios.get(`https://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='${fullName}'`)
   let playerID = response.data.search_player_all.queryResults.row.player_id
 
   // This uses playerID and calls API for pitching data
-  let pitching = await axios.get(`http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='${season}'&player_id='${playerID}'`)
+  let pitching = await axios.get(`https://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='${season}'&player_id='${playerID}'`)
   let seasonpitchingInfo = pitching.data.sport_pitching_tm.queryResults.row
   console.log(seasonpitchingInfo)
     if (seasonpitchingInfo === undefined) {
