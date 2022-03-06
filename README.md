@@ -2,8 +2,6 @@
 
 The Dugout is a Full stack application built using an React Typescript front end and Flask Python back end with a PostgreSQL database.
 
-[View Live](https://my-d-a9d71.web.app/)
-
 Created by: [Joshua Cunningham](https://www.linkedin.com/in/joshua-cunningham-wa/)
 
 ![Site Image Example](https://github.com/jcnghm/The-Dugout-App/blob/master/src/assets/images/github5.PNG)
